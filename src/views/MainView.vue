@@ -5,7 +5,7 @@
   >
     <div class="row" :class="{ break: isBreak }">
       <div class="col-5">
-        <div>new to do input box</div>
+        <div>new to do box</div>
         <div>
           <div>current to do</div>
           <div>pomodoro group</div>
