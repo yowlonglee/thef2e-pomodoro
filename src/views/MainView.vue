@@ -99,40 +99,6 @@ export default {
   },
   methods: {
     ...mapActions(["runTimer", "start", "stop", "pause", "clearRunningTimer"]),
-    // countdown: function() {
-    //   if (this.seconds == 0) {
-    //     if (this.minutes == 0) {
-    //       this.stop();
-    //       return;
-    //     }
-    //     this.seconds = 59;
-    //     this.minutes--;
-    //   } else {
-    //     this.seconds--;
-    //   }
-    // },
-    // start: function() {
-    //   this.isPause = false;
-    //   this.isCountdown = true;
-    //   this.interval = setInterval(this.countdown, 1000);
-    // },
-    // stop: function() {
-    //   this.clearTimer();
-    //   this.isCountdown = false;
-    //   this.isPause = false;
-    //   this.isBreak = !this.isBreak;
-    //   this.minutes = this.isBreak ? 5 : 25;
-    //   this.seconds = 0;
-    // },
-    // pause: function() {
-    //   this.clearTimer();
-    //   this.isPause = true;
-    // },
-    // clearTimer: function() {
-
-    //   clearInterval(this.interval);
-    //   this.interval = "";
-    // },
     numberToDoubleDigitString: function(num) {
       return num.toString().padStart(2, "0");
     }
