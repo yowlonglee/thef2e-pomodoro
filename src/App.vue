@@ -42,7 +42,7 @@ body,
 
 #app {
   background: linear-gradient(to right, $light-pink 50%, $dark-blue 50%);
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   &.break {
