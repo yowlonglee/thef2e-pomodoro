@@ -12,20 +12,48 @@
             ><i class="material-icons">add</i></span
           >
         </div>
-        <div>
-          <div>current to do</div>
-          <div>pomodoro group</div>
+        <div class="timer">
+          <div class="timer-to-do to-do">
+            <div class="to-do-radio">
+              <i class="material-icons md-48">radio_button_unchecked</i>
+            </div>
+            <div class="to-do-container">
+              <div class="to-do-title">the first thing to do today</div>
+              <div class="pomodoro-group">
+                <!-- <div class="pomodoro-history"> -->
+                <div class="history-item">
+                  <i class="material-icons md-12">fiber_manual_record</i>
+                </div>
+                <div class="history-item">
+                  <i class="material-icons md-12">fiber_manual_record</i>
+                </div>
+                <div class="history-item">
+                  <i class="material-icons md-12">fiber_manual_record</i>
+                </div>
+                <!-- </div> -->
+                <div class="timer-svg-container">
+                  <svg viewBox="-0.5 -0.5 101 101">
+                    <use href="#circle1" class="circle1" />
+                    <use href="#circle2" class="circle2" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="timer-duration">
+            <div class="duration-item">{{ strMinutes }}</div>
+            <div class="duration-item">:</div>
+            <div class="duration-item">{{ strSeconds }}</div>
+          </div>
         </div>
-        <div>{{ strMinutes }}</div>
-        <div>:</div>
-        <div>{{ strSeconds }}</div>
-        <div>mini to do list</div>
+        <div class="mini-to-do-list">mini to do list</div>
       </div>
       <div class="col-6">
         <div class="svg-container">
           <svg viewBox="-0.5 -0.5 101 101" class="timer-pie">
-            <circle class="circle1" r="50" cx="50" cy="50" />
+            <circle id="circle1" class="circle1" r="50" cx="50" cy="50" />
             <circle
+              id="circle2"
               class="circle2"
               r="25"
               cx="50"
@@ -105,6 +133,11 @@ export default {
 
 <style lang="scss">
 @import "@/assets/styles/variables.scss";
+@mixin ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
 .styled-input {
   position: relative;
@@ -133,7 +166,85 @@ export default {
     }
   }
 }
-
+.break {
+  .styled-input {
+    input[type="text"]::placeholder {
+      color: $blue;
+    }
+  }
+  .styled-input-append {
+    color: $blue;
+  }
+}
+.timer {
+  margin-top: 145px;
+  margin-bottom: 110px;
+}
+.timer-to-do {
+  display: flex;
+  .to-do-radio {
+    margin-right: 16px;
+  }
+  .to-do-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .to-do-title {
+    font-size: 1.5rem;
+  }
+  .pomodoro-group {
+    display: flex;
+    align-items: flex-end;
+  }
+  .pomodoro-history {
+    display: flex;
+  }
+  .history-item {
+    color: $dark-blue;
+    margin-right: 8px;
+  }
+}
+.timer-svg-container {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  svg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+  }
+}
+.timer-duration {
+  display: flex;
+  justify-content: space-between;
+}
+.duration-item {
+  color: $pink;
+  font-size: 170px;
+  font-weight: 700;
+}
+.break .duration-item {
+  color: $blue;
+}
+.to-do {
+  display: flex;
+  // align-content: center;
+}
+.to-do-radio {
+  color: $dark-blue;
+  margin-right: 4px;
+}
+.to-do-title {
+  color: $dark-blue;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  @include ellipsis;
+}
 .svg-container {
   position: relative;
   height: 0;
@@ -153,8 +264,11 @@ export default {
   stroke: $pink;
   stroke-width: 1;
 }
+.timer .circle1 {
+  stroke-width: 50;
+}
 .circle2 {
-  fill: $pink;
+  fill: transparent;
   stroke: $pink;
   stroke-width: 50;
   stroke-dasharray: 0 158;
@@ -163,7 +277,7 @@ export default {
   animation: fillup 1500s linear;
   animation-play-state: running;
 }
-.is-running .break .circle2 {
+.break .is-running .circle2 {
   animation: fillup 300s linear;
 }
 .is-running.is-pause .circle2 {
@@ -211,7 +325,7 @@ export default {
     stroke: $blue;
   }
   .circle2 {
-    fill: $blue;
+    // fill: $blue;
     stroke: $blue;
   }
   .circle3 {

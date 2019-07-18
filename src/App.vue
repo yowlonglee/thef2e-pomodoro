@@ -105,12 +105,18 @@ body,
 }
 
 .material-icons {
-  vertical-align: middle;
+  vertical-align: bottom;
   &.md-light {
     color: $white;
   }
+  &.md-12 {
+    font-size: 12px;
+  }
   &.md-36 {
     font-size: 36px;
+  }
+  &.md-48 {
+    font-size: 48px;
   }
 }
 
