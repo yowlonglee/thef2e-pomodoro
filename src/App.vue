@@ -7,7 +7,7 @@
         'is-pause': pomodoro.isPause
       }"
     >
-      <router-view />
+      <router-view class="wrapper" />
     </div>
   </div>
 </template>
@@ -37,7 +37,7 @@ html {
 body,
 #app {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 #app {
@@ -63,7 +63,7 @@ body,
   min-width: 600px;
   margin-right: auto;
   margin-left: auto;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -112,5 +112,9 @@ body,
   &.md-36 {
     font-size: 36px;
   }
+}
+
+.wrapper {
+  padding: 3rem 0;
 }
 </style>
