@@ -23,13 +23,7 @@ export default {
 </script>
 
 <style lang="scss">
-// background color
-// $pink: #ff4384;
-$light-pink: #ffedf7;
-// $blue: #00a7ff;
-$light-blue: #e5f3ff;
-$dark-blue: #003164;
-// $white: #fff;
+@import "@/assets/styles/variables.scss";
 
 html {
   box-sizing: border-box;
@@ -46,8 +40,15 @@ body,
   height: 100vh;
 }
 
-$col: 12;
-$gutter-width: 30px;
+#app {
+  background: linear-gradient(to right, $light-pink 50%, $dark-blue 50%);
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &.break {
+    background: linear-gradient(to right, $light-blue 50%, $dark-blue 50%);
+  }
+}
 
 @function color-stop($col, $gutter-width) {
   $stop: calc(
@@ -97,16 +98,6 @@ $gutter-width: 30px;
         (#{$gutter-width} * #{$n - 1})
     );
     @include col-margins;
-  }
-}
-
-#app {
-  background: linear-gradient(to right, $light-pink 50%, $dark-blue 50%);
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  &.break {
-    background: linear-gradient(to right, $light-blue 50%, $dark-blue 50%);
   }
 }
 </style>

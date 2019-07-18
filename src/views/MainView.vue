@@ -95,9 +95,10 @@ export default {
 </script>
 
 <style lang="scss">
-$pink: #ff4384;
-$blue: #00a7ff;
-$white: #fff;
+@import "@/assets/styles/variables.scss";
+// $pink: #ff4384;
+// $blue: #00a7ff;
+// $white: #fff;
 
 .svg-container {
   position: relative;
