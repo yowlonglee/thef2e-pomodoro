@@ -1,9 +1,9 @@
 <template>
   <div
     class="main-view"
-    :class="{ 'is-countdown': isCountdown, 'is-pause': isPause }"
+    :class="{ 'is-running': pomodoro.isRunning, 'is-pause': pomodoro.isPause }"
   >
-    <div class="row" :class="{ break: isBreak }">
+    <div class="row" :class="{ break: pomodoro.isBreak }">
       <div class="col-5">
         <div>new to do box</div>
         <div>
@@ -71,64 +71,68 @@
 
 <script>
 // import AppPomodoro from "@/components/AppPomodoro.vue";
+import { mapActions } from "vuex";
 export default {
   name: "MainView",
   components: {
     // AppPomodoro
   },
   data: function() {
-    return {
-      isBreak: false,
-      isCountdown: false,
-      isPause: false,
-      minutes: 25,
-      seconds: 0,
-      interval: ""
-    };
+    return {};
   },
   computed: {
+    seconds: function() {
+      return this.$store.state.pomodoro.seconds;
+    },
+    minutes: function() {
+      return this.$store.state.pomodoro.minutes;
+    },
+    pomodoro: function() {
+      return this.$store.state.pomodoro;
+    },
     strSeconds: function() {
-      return this.numberToDoubleDigitString(this.seconds);
+      return this.numberToDoubleDigitString(this.$store.state.pomodoro.seconds);
     },
     strMinutes: function() {
-      return this.numberToDoubleDigitString(this.minutes);
+      return this.numberToDoubleDigitString(this.$store.state.pomodoro.minutes);
     }
   },
   methods: {
-    countdown: function() {
-      if (this.seconds == 0) {
-        if (this.minutes == 0) {
-          // complete
-          this.stop();
-          return;
-        }
-        this.seconds = 59;
-        this.minutes--;
-      } else {
-        this.seconds--;
-      }
-    },
-    start: function() {
-      this.isPause = false;
-      this.isCountdown = true;
-      this.interval = setInterval(this.countdown, 1000);
-    },
-    stop: function() {
-      this.clearTimer();
-      this.isCountdown = false;
-      this.isPause = false;
-      this.isBreak = !this.isBreak;
-      this.minutes = this.isBreak ? 5 : 25;
-      this.seconds = 0;
-    },
-    pause: function() {
-      this.clearTimer();
-      this.isPause = true;
-    },
-    clearTimer: function() {
-      clearInterval(this.interval);
-      this.interval = "";
-    },
+    ...mapActions(["runTimer", "start", "stop", "pause", "clearRunningTimer"]),
+    // countdown: function() {
+    //   if (this.seconds == 0) {
+    //     if (this.minutes == 0) {
+    //       this.stop();
+    //       return;
+    //     }
+    //     this.seconds = 59;
+    //     this.minutes--;
+    //   } else {
+    //     this.seconds--;
+    //   }
+    // },
+    // start: function() {
+    //   this.isPause = false;
+    //   this.isCountdown = true;
+    //   this.interval = setInterval(this.countdown, 1000);
+    // },
+    // stop: function() {
+    //   this.clearTimer();
+    //   this.isCountdown = false;
+    //   this.isPause = false;
+    //   this.isBreak = !this.isBreak;
+    //   this.minutes = this.isBreak ? 5 : 25;
+    //   this.seconds = 0;
+    // },
+    // pause: function() {
+    //   this.clearTimer();
+    //   this.isPause = true;
+    // },
+    // clearTimer: function() {
+
+    //   clearInterval(this.interval);
+    //   this.interval = "";
+    // },
     numberToDoubleDigitString: function(num) {
       return num.toString().padStart(2, "0");
     }
@@ -166,14 +170,14 @@ $white: #fff;
   stroke-width: 50;
   stroke-dasharray: 0 158;
 }
-.is-countdown .circle2 {
+.is-running .circle2 {
   animation: fillup 1500s linear;
   animation-play-state: running;
 }
-.is-countdown .break .circle2 {
+.is-running .break .circle2 {
   animation: fillup 300s linear;
 }
-.is-countdown.is-pause .circle2 {
+.is-running.is-pause .circle2 {
   animation-play-state: paused;
 }
 @keyframes fillup {
@@ -240,7 +244,7 @@ $white: #fff;
     fill: $blue;
   }
 }
-.is-countdown {
+.is-running {
   .circle3 {
     fill: $white;
   }
@@ -265,7 +269,7 @@ $white: #fff;
     display: none;
   }
 }
-.is-countdown.is-pause {
+.is-running.is-pause {
   .pause {
     display: none;
   }
