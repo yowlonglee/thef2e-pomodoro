@@ -103,4 +103,14 @@ body,
     @include col-margins;
   }
 }
+
+.material-icons {
+  vertical-align: middle;
+  &.md-light {
+    color: $white;
+  }
+  &.md-36 {
+    font-size: 36px;
+  }
+}
 </style>

@@ -2,7 +2,16 @@
   <div class="main-view">
     <div class="row">
       <div class="col-5">
-        <div>new to do box</div>
+        <div class="styled-input">
+          <input
+            class="add-to-do"
+            type="text"
+            placeholder="Add a New Mission..."
+          />
+          <span class="styled-input-append"
+            ><i class="material-icons">add</i></span
+          >
+        </div>
         <div>
           <div>current to do</div>
           <div>pomodoro group</div>
@@ -97,6 +106,34 @@ export default {
 <style lang="scss">
 @import "@/assets/styles/variables.scss";
 
+.styled-input {
+  position: relative;
+  input[type="text"] {
+    width: 100%;
+    padding: 1.125em 1em;
+    border: 0;
+    &::placeholder {
+      color: $pink;
+      font-weight: 700;
+      font-style: italic;
+      text-transform: uppercase;
+    }
+  }
+  &-append {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: $white;
+    // font-size: 0;
+    color: $pink;
+    &:hover {
+      cursor: pointer;
+      // color: $dark-blue;
+    }
+  }
+}
+
 .svg-container {
   position: relative;
   height: 0;
@@ -167,16 +204,8 @@ export default {
 }
 .nav-item {
   margin-top: 48px;
-  font-size: 0;
 }
-.material-icons {
-  &.md-light {
-    color: $white;
-  }
-  &.md-36 {
-    font-size: 36px;
-  }
-}
+
 .break {
   .circle1 {
     stroke: $blue;
