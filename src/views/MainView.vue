@@ -81,12 +81,6 @@ export default {
     return {};
   },
   computed: {
-    seconds: function() {
-      return this.$store.state.pomodoro.seconds;
-    },
-    minutes: function() {
-      return this.$store.state.pomodoro.minutes;
-    },
     pomodoro: function() {
       return this.$store.state.pomodoro;
     },
