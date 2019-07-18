@@ -1,9 +1,6 @@
 <template>
-  <div
-    class="main-view"
-    :class="{ 'is-running': pomodoro.isRunning, 'is-pause': pomodoro.isPause }"
-  >
-    <div class="row" :class="{ break: pomodoro.isBreak }">
+  <div class="main-view">
+    <div class="row">
       <div class="col-5">
         <div>new to do box</div>
         <div>
@@ -81,9 +78,6 @@ export default {
     return {};
   },
   computed: {
-    pomodoro: function() {
-      return this.$store.state.pomodoro;
-    },
     strSeconds: function() {
       return this.numberToDoubleDigitString(this.$store.state.pomodoro.seconds);
     },
@@ -203,6 +197,14 @@ $white: #fff;
   .start {
     fill: $blue;
   }
+  .is-running {
+    .circle4 {
+      fill: $blue;
+    }
+    .stop {
+      fill: $blue;
+    }
+  }
 }
 .is-running {
   .circle3 {
@@ -213,14 +215,6 @@ $white: #fff;
   }
   .stop {
     fill: $pink;
-  }
-  .break {
-    .circle4 {
-      fill: $blue;
-    }
-    .stop {
-      fill: $blue;
-    }
   }
   .pause {
     display: inline-block;
