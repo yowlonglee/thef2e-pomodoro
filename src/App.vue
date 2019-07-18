@@ -64,6 +64,9 @@ body,
   margin-right: auto;
   margin-left: auto;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background: linear-gradient(
     to right,
     $light-pink color-stop($col, $gutter-width),
