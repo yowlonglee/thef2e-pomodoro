@@ -123,4 +123,8 @@ body,
 .wrapper {
   padding: 3rem 0;
 }
+
+.d-none {
+  display: none;
+}
 </style>

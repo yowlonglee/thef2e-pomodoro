@@ -15,12 +15,16 @@
         <div class="timer">
           <div class="timer-to-do to-do">
             <div class="to-do-radio">
-              <i class="material-icons md-48">radio_button_unchecked</i>
+              <i class="material-icons md-48 unchecked">
+                radio_button_unchecked
+              </i>
+              <i class="material-icons md-48 checked">
+                radio_button_checked
+              </i>
             </div>
             <div class="to-do-container">
-              <div class="to-do-title">the first thing to do today</div>
-              <div class="pomodoro-group">
-                <!-- <div class="pomodoro-history"> -->
+              <div class="to-do-title">{{ miniToDoList[0].title }}</div>
+              <div class="pomodoro-history">
                 <div class="history-item">
                   <i class="material-icons md-12">fiber_manual_record</i>
                 </div>
@@ -30,7 +34,6 @@
                 <div class="history-item">
                   <i class="material-icons md-12">fiber_manual_record</i>
                 </div>
-                <!-- </div> -->
                 <div class="timer-svg-container">
                   <svg viewBox="-0.5 -0.5 101 101">
                     <use href="#circle1" class="circle1" />
@@ -120,6 +123,13 @@ export default {
     },
     strMinutes: function() {
       return this.numberToDoubleDigitString(this.$store.state.pomodoro.minutes);
+    },
+    miniToDoList: function() {
+      const list = [];
+      for (let i = 0; i < 4; i++) {
+        list.push(this.$store.state.toDos[i]);
+      }
+      return list;
     }
   },
   methods: {
@@ -181,25 +191,19 @@ export default {
   margin-bottom: 110px;
 }
 .timer-to-do {
-  display: flex;
   .to-do-radio {
     margin-right: 16px;
   }
   .to-do-container {
-    flex-grow: 1;
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
   .to-do-title {
     font-size: 1.5rem;
   }
-  .pomodoro-group {
-    display: flex;
-    align-items: flex-end;
-  }
   .pomodoro-history {
     display: flex;
+    align-items: flex-end;
   }
   .history-item {
     color: $dark-blue;
@@ -232,11 +236,26 @@ export default {
 }
 .to-do {
   display: flex;
-  // align-content: center;
 }
 .to-do-radio {
   color: $dark-blue;
   margin-right: 4px;
+  .checked {
+    display: none;
+  }
+  &.done {
+    .checked {
+      display: inline-block;
+    }
+    .unchecked {
+      display: none;
+    }
+  }
+}
+.to-do-container {
+  display: flex;
+  flex-grow: 1;
+  min-width: 0;
 }
 .to-do-title {
   color: $dark-blue;
@@ -245,6 +264,7 @@ export default {
   line-height: 1;
   @include ellipsis;
 }
+
 .svg-container {
   position: relative;
   height: 0;
