@@ -13,43 +13,72 @@
           >
         </div>
         <div class="timer">
-          <div class="timer-to-do to-do">
-            <div class="to-do-radio">
-              <i class="material-icons md-48 unchecked">
-                radio_button_unchecked
-              </i>
-              <i class="material-icons md-48 checked">
-                radio_button_checked
-              </i>
-            </div>
-            <div class="to-do-container">
-              <div class="to-do-title">{{ miniToDoList[0].title }}</div>
-              <div class="pomodoro-history">
-                <div class="history-item">
-                  <i class="material-icons md-12">fiber_manual_record</i>
-                </div>
-                <div class="history-item">
-                  <i class="material-icons md-12">fiber_manual_record</i>
-                </div>
-                <div class="history-item">
-                  <i class="material-icons md-12">fiber_manual_record</i>
-                </div>
-                <div class="timer-svg-container">
-                  <svg viewBox="-0.5 -0.5 101 101">
-                    <use href="#circle1" class="circle1" />
-                    <use href="#circle2" class="circle2" />
-                  </svg>
+          <template v-if="firstToDo">
+            <div class="timer-to-do to-do">
+              <div class="to-do-radio">
+                <i class="material-icons md-48 unchecked">
+                  radio_button_unchecked
+                </i>
+                <i class="material-icons md-48 checked">
+                  radio_button_checked
+                </i>
+              </div>
+              <div class="to-do-container">
+                <div class="to-do-title">{{ firstToDo.title }}</div>
+                <div class="pomodoro-history">
+                  <div class="history-item">
+                    <i class="material-icons md-12">fiber_manual_record</i>
+                  </div>
+                  <div class="history-item">
+                    <i class="material-icons md-12">fiber_manual_record</i>
+                  </div>
+                  <div class="history-item">
+                    <i class="material-icons md-12">fiber_manual_record</i>
+                  </div>
+                  <div class="timer-svg-container">
+                    <svg viewBox="-0.5 -0.5 101 101">
+                      <use href="#circle1" class="circle1" />
+                      <use href="#circle2" class="circle2" />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </template>
+          <template v-else>
+            <div>What are you working on?</div>
+          </template>
           <div class="timer-duration">
             <div class="duration-item">{{ strMinutes }}</div>
             <div class="duration-item">:</div>
             <div class="duration-item">{{ strSeconds }}</div>
           </div>
         </div>
-        <div class="mini-to-do-list">mini to do list</div>
+        <div class="mini-to-do-list">
+          <template v-if="miniToDoList.length > 0">
+            <template v-for="todo in miniToDoList">
+              <div class="to-do" :key="todo.title">
+                <div class="to-do-radio">
+                  <i class="material-icons unchecked">
+                    radio_button_unchecked
+                  </i>
+                  <i class="material-icons checked">
+                    radio_button_checked
+                  </i>
+                </div>
+                <div class="to-do-container">
+                  <div class="to-do-title">{{ todo.title }}</div>
+                  <div class="to-do-icon-start">
+                    <i class="material-icons">play_circle_outline</i>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </template>
+          <template v-else>
+            <div>Add more to dos!</div>
+          </template>
+        </div>
       </div>
       <div class="col-6">
         <div class="svg-container">
@@ -126,10 +155,15 @@ export default {
     },
     miniToDoList: function() {
       const list = [];
-      for (let i = 0; i < 4; i++) {
-        list.push(this.$store.state.toDos[i]);
+      if (this.$store.state.toDos.length > 1) {
+        for (let i = 1; i < 4; i++) {
+          list.push(this.$store.state.toDos[i]);
+        }
       }
       return list;
+    },
+    firstToDo: function() {
+      return this.$store.state.toDos[0];
     }
   },
   methods: {
@@ -149,6 +183,42 @@ export default {
   overflow: hidden;
 }
 
+.to-do {
+  display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba($dark-blue, 0.2);
+}
+.to-do-radio {
+  color: $dark-blue;
+  margin-right: 4px;
+  .checked {
+    display: none;
+  }
+  &.done {
+    .checked {
+      display: inline-block;
+    }
+    .unchecked {
+      display: none;
+    }
+  }
+}
+.to-do-container {
+  display: flex;
+  flex-grow: 1;
+  min-width: 0;
+}
+.to-do-title {
+  color: $dark-blue;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.5rem;
+  flex: 1;
+  @include ellipsis;
+}
+.to-do-icon-start {
+  color: $dark-blue;
+}
 .styled-input {
   position: relative;
   input[type="text"] {
@@ -191,12 +261,14 @@ export default {
   margin-bottom: 110px;
 }
 .timer-to-do {
+  border-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
   .to-do-radio {
     margin-right: 16px;
   }
   .to-do-container {
     flex-direction: column;
-    justify-content: space-between;
   }
   .to-do-title {
     font-size: 1.5rem;
@@ -233,36 +305,6 @@ export default {
 }
 .break .duration-item {
   color: $blue;
-}
-.to-do {
-  display: flex;
-}
-.to-do-radio {
-  color: $dark-blue;
-  margin-right: 4px;
-  .checked {
-    display: none;
-  }
-  &.done {
-    .checked {
-      display: inline-block;
-    }
-    .unchecked {
-      display: none;
-    }
-  }
-}
-.to-do-container {
-  display: flex;
-  flex-grow: 1;
-  min-width: 0;
-}
-.to-do-title {
-  color: $dark-blue;
-  font-weight: 700;
-  text-transform: uppercase;
-  line-height: 1;
-  @include ellipsis;
 }
 
 .svg-container {

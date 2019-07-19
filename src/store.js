@@ -14,7 +14,11 @@ export default new Vuex.Store({
     },
     toDos: [
       { title: "Better to persist than perfect", pomodoro: 2 },
-      { title: "The second thing to do today", pomodoro: 0 },
+      {
+        title:
+          "The second thing to do today is always better than the first one",
+        pomodoro: 0
+      },
       { title: "The third thing to do today", pomodoro: 3 },
       { title: "The fourth thing to do today", pomodoro: 5 },
       { title: "The fifth thing to do today", pomodoro: 0 }
