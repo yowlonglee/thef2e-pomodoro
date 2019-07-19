@@ -12,9 +12,45 @@ export default new Vuex.Store({
       isRunning: false,
       isPause: false
     },
-    toDos: [],
+    toDos: [
+      { title: "The first thing to do today", pomodoro: 2 },
+      { title: "The second thing to do today", pomodoro: 0 },
+      { title: "The third thing to do today", pomodoro: 3 },
+      { title: "The fourth thing to do today", pomodoro: 5 },
+      { title: "The fifth thing to do today", pomodoro: 0 }
+    ],
+    finishedToDos: [
+      { title: "Meeting with Jane", pomodoro: 2 },
+      { title: "Watch Game of Thrones", pomodoro: 4 },
+      { title: "Listen to podcast", pomodoro: 1 },
+      { title: "Cook dinner", pomodoro: 2 }
+    ],
+    history: [
+      { year: 2019, month: 6, day: 30, pomodoro: 3 },
+      { year: 2019, month: 7, day: 1, pomodoro: 2 },
+      { year: 2019, month: 7, day: 2, pomodoro: 10 },
+      { year: 2019, month: 7, day: 3, pomodoro: 2 },
+      { year: 2019, month: 7, day: 4, pomodoro: 0 },
+      { year: 2019, month: 7, day: 5, pomodoro: 9 },
+      { year: 2019, month: 7, day: 6, pomodoro: 8 },
+      { year: 2019, month: 7, day: 7, pomodoro: 7 },
+      { year: 2019, month: 7, day: 8, pomodoro: 8 },
+      { year: 2019, month: 7, day: 9, pomodoro: 5 },
+      { year: 2019, month: 7, day: 10, pomodoro: 4 },
+      { year: 2019, month: 7, day: 11, pomodoro: 4 },
+      { year: 2019, month: 7, day: 12, pomodoro: 0 },
+      { year: 2019, month: 7, day: 13, pomodoro: 9 },
+      { year: 2019, month: 7, day: 14, pomodoro: 3 },
+      { year: 2019, month: 7, day: 15, pomodoro: 4 },
+      { year: 2019, month: 7, day: 16, pomodoro: 10 },
+      { year: 2019, month: 7, day: 17, pomodoro: 5 },
+      { year: 2019, month: 7, day: 18, pomodoro: 1 },
+      { year: 2019, month: 7, day: 19, pomodoro: 2 },
+      { year: 2019, month: 7, day: 20, pomodoro: 6 }
+    ],
     interval: ""
   },
+  getters: {},
   mutations: {
     decrement(state, name) {
       state.pomodoro[name]--;
