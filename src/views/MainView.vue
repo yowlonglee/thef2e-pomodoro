@@ -13,41 +13,37 @@
           >
         </div>
         <div class="timer">
-          <template v-if="firstToDo">
-            <div class="timer-to-do to-do">
-              <div class="to-do-radio">
-                <i class="material-icons md-48 unchecked">
-                  radio_button_unchecked
-                </i>
-                <i class="material-icons md-48 checked">
-                  radio_button_checked
-                </i>
-              </div>
-              <div class="to-do-container">
-                <div class="to-do-title">{{ firstToDo.title }}</div>
-                <div class="pomodoro-history">
-                  <div class="history-item">
+          <div class="timer-to-do to-do" v-if="firstToDo">
+            <div class="to-do-radio">
+              <i class="material-icons md-48 unchecked">
+                radio_button_unchecked
+              </i>
+              <i class="material-icons md-48 checked">
+                radio_button_checked
+              </i>
+            </div>
+            <div class="to-do-container">
+              <div class="to-do-title">{{ firstToDo.title }}</div>
+              <div class="to-do-history">
+                <div class="history-group" v-if="firstToDo.pomodoro > 0">
+                  <div
+                    class="history-item"
+                    v-for="n in firstToDo.pomodoro"
+                    :key="n"
+                  >
                     <i class="material-icons md-12">fiber_manual_record</i>
                   </div>
-                  <div class="history-item">
-                    <i class="material-icons md-12">fiber_manual_record</i>
-                  </div>
-                  <div class="history-item">
-                    <i class="material-icons md-12">fiber_manual_record</i>
-                  </div>
-                  <div class="timer-svg-container">
-                    <svg viewBox="-0.5 -0.5 101 101">
-                      <use href="#circle1" class="circle1" />
-                      <use href="#circle2" class="circle2" />
-                    </svg>
-                  </div>
+                </div>
+                <div class="timer-svg-container">
+                  <svg viewBox="-0.5 -0.5 101 101">
+                    <use href="#circle1" class="circle1" />
+                    <use href="#circle2" class="circle2" />
+                  </svg>
                 </div>
               </div>
             </div>
-          </template>
-          <template v-else>
-            <div>What are you working on?</div>
-          </template>
+          </div>
+          <div v-else>What are you working on?</div>
           <div class="timer-duration">
             <div class="duration-item">{{ strMinutes }}</div>
             <div class="duration-item">:</div>
@@ -273,11 +269,15 @@ export default {
   .to-do-title {
     font-size: 1.5rem;
   }
-  .pomodoro-history {
+  .to-do-history {
     display: flex;
     align-items: flex-end;
   }
+  .history-group {
+    display: inline-block;
+  }
   .history-item {
+    display: inline-block;
     color: $dark-blue;
     margin-right: 8px;
   }
