@@ -127,4 +127,10 @@ body,
 .d-none {
   display: none;
 }
+.d-flex {
+  display: flex;
+}
+.flex-align-items-center {
+  align-items: center;
+}
 </style>

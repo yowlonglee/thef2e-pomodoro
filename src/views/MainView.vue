@@ -12,72 +12,79 @@
             ><i class="material-icons">add</i></span
           >
         </div>
-        <div class="timer">
-          <div class="timer-to-do to-do" v-if="firstToDo">
-            <div class="to-do-radio">
-              <i class="material-icons md-48 unchecked">
-                radio_button_unchecked
-              </i>
-              <i class="material-icons md-48 checked">
-                radio_button_checked
-              </i>
-            </div>
-            <div class="to-do-container">
-              <div class="to-do-title">{{ firstToDo.title }}</div>
-              <div class="to-do-history">
-                <div class="history-group" v-if="firstToDo.pomodoro > 0">
-                  <div
-                    class="history-item"
-                    v-for="n in firstToDo.pomodoro"
-                    :key="n"
-                  >
-                    <i class="material-icons md-12">fiber_manual_record</i>
+        <template v-if="miniToDoList.length > 0">
+          <div class="timer">
+            <div class="timer-to-do to-do">
+              <div class="to-do-radio" @click="toggleComplete">
+                <i class="material-icons md-48 unchecked">
+                  radio_button_unchecked
+                </i>
+                <i class="material-icons md-48 checked">
+                  radio_button_checked
+                </i>
+              </div>
+              <div class="to-do-container">
+                <div class="to-do-title">{{ firstToDo.title }}</div>
+                <div class="to-do-history">
+                  <div class="history-group" v-if="firstToDo.pomodoro > 0">
+                    <div
+                      class="history-item"
+                      v-for="n in firstToDo.pomodoro"
+                      :key="n"
+                    >
+                      <i class="material-icons md-12">fiber_manual_record</i>
+                    </div>
                   </div>
-                </div>
-                <div class="timer-svg-container">
-                  <svg viewBox="-0.5 -0.5 101 101">
-                    <use href="#circle1" class="circle1" />
-                    <use href="#circle2" class="circle2" />
-                  </svg>
+                  <div class="timer-svg-container">
+                    <svg viewBox="-0.5 -0.5 101 101">
+                      <use href="#circle1" class="circle1" />
+                      <use href="#circle2" class="circle2" />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>
+            <div class="timer-duration">
+              <div class="duration-item">{{ strMinutes }}</div>
+              <div class="duration-item">:</div>
+              <div class="duration-item">{{ strSeconds }}</div>
+            </div>
           </div>
-          <div v-else>What are you working on?</div>
-          <div class="timer-duration">
-            <div class="duration-item">{{ strMinutes }}</div>
-            <div class="duration-item">:</div>
-            <div class="duration-item">{{ strSeconds }}</div>
-          </div>
-        </div>
-        <div class="mini-to-do-list">
-          <template v-if="miniToDoList.length > 0">
-            <template v-for="todo in miniToDoList">
-              <div class="to-do" :key="todo.title">
-                <div class="to-do-radio">
-                  <i class="material-icons unchecked">
-                    radio_button_unchecked
-                  </i>
-                  <i class="material-icons checked">
-                    radio_button_checked
-                  </i>
-                </div>
-                <div class="to-do-container">
-                  <div class="to-do-title">{{ todo.title }}</div>
-                  <div class="to-do-icon-start">
-                    <i class="material-icons">play_circle_outline</i>
+          <div class="mini-to-do-list">
+            <template v-if="miniToDoList.length > 0">
+              <template v-for="todo in miniToDoList">
+                <div class="to-do" :key="todo.title">
+                  <div class="to-do-radio" @click="toggleComplete">
+                    <i class="material-icons unchecked">
+                      radio_button_unchecked
+                    </i>
+                    <i class="material-icons checked">
+                      radio_button_checked
+                    </i>
+                  </div>
+                  <div class="to-do-container">
+                    <div class="to-do-title">{{ todo.title }}</div>
+                    <div class="to-do-icon-start">
+                      <i class="material-icons">play_circle_outline</i>
+                    </div>
                   </div>
                 </div>
+              </template>
+            </template>
+            <template v-else>
+              <div>
+                <div>To do list is empty</div>
+                <div>Try to add some tasks use the form above</div>
               </div>
             </template>
-          </template>
-          <template v-else>
-            <div>Add more to dos!</div>
-          </template>
-        </div>
+          </div>
+        </template>
+        <template v-else>
+          <div>Your list is empty!</div>
+        </template>
       </div>
-      <div class="col-6">
-        <div class="svg-container">
+      <div class="col-6 d-flex flex-align-items-center">
+        <div class="svg-container" v-if="miniToDoList.length > 0">
           <svg viewBox="-0.5 -0.5 101 101" class="timer-pie">
             <circle id="circle1" class="circle1" r="50" cx="50" cy="50" />
             <circle
@@ -166,6 +173,12 @@ export default {
     ...mapActions(["runTimer", "start", "stop", "pause", "clearRunningTimer"]),
     numberToDoubleDigitString: function(num) {
       return num.toString().padStart(2, "0");
+    },
+    toggleComplete: function(event) {
+      const el = event.currentTarget;
+      el.classList.contains("done")
+        ? el.classList.remove("done")
+        : el.classList.add("done");
     }
   }
 };
@@ -187,10 +200,12 @@ export default {
 .to-do-radio {
   color: $dark-blue;
   margin-right: 4px;
+  cursor: pointer;
   .checked {
     display: none;
   }
-  &.done {
+  &.done,
+  &:hover {
     .checked {
       display: inline-block;
     }
