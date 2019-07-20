@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-5">
         <styled-input />
-        <template v-if="miniToDoList.length > 0">
+        <template v-if="toDoListLength > 0">
           <app-pomodoro-timer />
           <div class="mini-to-do-list">
             <template v-if="miniToDoList.length > 0">
@@ -22,7 +22,8 @@
           </div>
         </template>
         <template v-else>
-          <div>Your list is empty!</div>
+          <div>To do list is empty</div>
+          <div>Try to add some tasks use the form above</div>
         </template>
       </div>
       <div class="col-6 d-flex flex-align-items-center">
@@ -68,6 +69,9 @@ export default {
     return {};
   },
   computed: {
+    toDoListLength: function() {
+      return this.$store.state.toDos.length;
+    },
     miniToDoList: function() {
       const list = [];
       if (this.$store.state.toDos.length > 1) {
@@ -77,8 +81,7 @@ export default {
       }
       return list;
     }
-  },
-  methods: {}
+  }
 };
 </script>
 
