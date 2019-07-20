@@ -7,13 +7,19 @@
         'is-pause': pomodoro.isPause
       }"
     >
-      <router-view class="view-wrapper" />
+      <router-view class="view-wrapper">
+        <NavList />
+      </router-view>
     </div>
   </div>
 </template>
 
 <script>
+import NavList from "@/components/NavList.vue";
 export default {
+  components: {
+    NavList
+  },
   computed: {
     pomodoro: function() {
       return this.$store.state.pomodoro;
