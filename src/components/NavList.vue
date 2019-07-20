@@ -30,6 +30,6 @@ export default {
   align-items: flex-end;
 }
 .nav-item {
-  margin-top: 48px;
+  margin-bottom: 48px;
 }
 </style>
