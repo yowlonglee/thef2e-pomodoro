@@ -9,7 +9,7 @@ export default new Vuex.Store({
       minutes: 25,
       seconds: 0,
       isBreak: false,
-      isRunning: false,
+      isCountdown: false,
       isPause: false
     },
     toDos: [
@@ -87,7 +87,7 @@ export default new Vuex.Store({
     },
     start: function({ commit, dispatch }) {
       commit("setPomodoroState", { name: "isPause", val: false });
-      commit("setPomodoroState", { name: "isRunning", val: true });
+      commit("setPomodoroState", { name: "isCountdown", val: true });
       const timer = setInterval(() => dispatch("runTimer"), 1000);
       commit("setTimer", timer);
     },
@@ -95,7 +95,7 @@ export default new Vuex.Store({
       const isBreak = !state.pomodoro.isBreak;
       const minutes = isBreak ? 5 : 25;
       dispatch("clearRunningTimer");
-      commit("setPomodoroState", { name: "isRunning", val: false });
+      commit("setPomodoroState", { name: "isCountdown", val: false });
       commit("setPomodoroState", { name: "isPause", val: false });
       commit("setPomodoroState", { name: "isBreak", val: isBreak });
       commit("setPomodoroState", { name: "minutes", val: minutes });

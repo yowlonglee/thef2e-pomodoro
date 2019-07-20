@@ -3,11 +3,11 @@
     <div
       class="container"
       :class="{
-        'is-running': pomodoro.isRunning,
+        'is-countdown': pomodoro.isCountdown,
         'is-pause': pomodoro.isPause
       }"
     >
-      <router-view class="wrapper" />
+      <router-view class="view-wrapper" />
     </div>
   </div>
 </template>
@@ -120,7 +120,7 @@ body,
   }
 }
 
-.wrapper {
+.view-wrapper {
   padding: 3rem 0;
 }
 

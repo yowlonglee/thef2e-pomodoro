@@ -350,14 +350,14 @@ export default {
   stroke-width: 50;
   stroke-dasharray: 0 158;
 }
-.is-running .circle2 {
+.is-countdown .circle2 {
   animation: fillup 1500s linear;
   animation-play-state: running;
 }
-.break .is-running .circle2 {
+.break .is-countdown .circle2 {
   animation: fillup 300s linear;
 }
-.is-running.is-pause .circle2 {
+.is-countdown.is-pause .circle2 {
   animation-play-state: paused;
 }
 @keyframes fillup {
@@ -415,7 +415,7 @@ export default {
   .start {
     fill: $blue;
   }
-  .is-running {
+  .is-countdown {
     .circle4 {
       fill: $blue;
     }
@@ -424,7 +424,7 @@ export default {
     }
   }
 }
-.is-running {
+.is-countdown {
   .circle3 {
     fill: $white;
   }
@@ -441,7 +441,7 @@ export default {
     display: none;
   }
 }
-.is-running.is-pause {
+.is-countdown.is-pause {
   .pause {
     display: none;
   }
