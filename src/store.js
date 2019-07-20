@@ -13,7 +13,7 @@ export default new Vuex.Store({
       isPause: false
     },
     toDos: [
-      { title: "Better to persist than perfect", pomodoro: 6 },
+      { title: "Better to persist than perfect", pomodoro: 2 },
       {
         title:
           "The second thing to do today is always better than the first one",
