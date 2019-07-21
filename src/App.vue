@@ -120,6 +120,7 @@ body,
         #{$n} +
         (#{$gutter-width} * #{$n - 1})
     );
+    min-width: 1px;
     @include col-margins;
   }
 }

@@ -27,7 +27,7 @@
           </template>
         </template>
         <template v-else>
-          <div class="to-do-icon-start">
+          <div class="to-do-icon-start" @click="continueToDo">
             <i class="material-icons">play_circle_outline</i>
           </div>
         </template>
@@ -36,7 +36,6 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
 export default {
   name: "ToDo",
   props: {
@@ -58,13 +57,15 @@ export default {
     }
   },
   methods: {
-    // ...mapActions(["remove", "restore"]),
     toggleComplete: function() {
       if (this.done) {
         this.$store.dispatch("restore", this.index);
       } else {
         this.$store.dispatch("remove", this.index);
       }
+    },
+    continueToDo: function() {
+      this.$store.dispatch("continue", this.index);
     }
   }
 };
@@ -117,6 +118,7 @@ export default {
 }
 .to-do-icon-start {
   color: $white;
+  cursor: pointer;
 }
 .history-item {
   display: inline-block;
@@ -125,7 +127,8 @@ export default {
 .is-main-layout {
   .to-do-radio,
   .to-do-title,
-  .to-do-icon-start .history-item {
+  .to-do-icon-start,
+  .history-item {
     color: $dark-blue;
   }
   .to-do {

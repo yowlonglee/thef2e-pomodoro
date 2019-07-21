@@ -81,6 +81,10 @@ export default new Vuex.Store({
     restoreToDo(state, index) {
       state.toDos.push(state.finishedToDos[index]);
       state.finishedToDos.splice(index, 1);
+    },
+    continue(state, index) {
+      const splicedToDo = state.toDos.splice(index, 1);
+      state.toDos.unshift(splicedToDo[0]);
     }
   },
   actions: {
@@ -128,6 +132,9 @@ export default new Vuex.Store({
     },
     restore: function({ commit }, index) {
       commit("restoreToDo", index);
+    },
+    continue: function({ commit }, index) {
+      commit("continue", index);
     }
   }
 });

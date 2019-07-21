@@ -8,9 +8,10 @@
           <div class="mini-to-do-list">
             <template v-if="miniToDoList.length > 0">
               <to-do
-                v-for="todo in miniToDoList"
+                v-for="(todo, index) in miniToDoList"
                 :key="todo.title"
                 :title="todo.title"
+                :index="index + 1"
               />
             </template>
             <template v-else>
@@ -62,7 +63,8 @@ export default {
     miniToDoList: function() {
       const list = [];
       if (this.$store.state.toDos.length > 1) {
-        for (let i = 1; i < 4; i++) {
+        const min = Math.min(4, this.$store.state.toDos.length);
+        for (let i = 1; i < min; i++) {
           list.push(this.$store.state.toDos[i]);
         }
       }
