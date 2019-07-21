@@ -125,8 +125,10 @@ body,
   }
 }
 
-.offset-1 {
-  margin-left: calc(15px + 65px);
+@for $n from 1 through $col {
+  .offset-#{$n} {
+    margin-left: calc(15px + (30px + 65px) * #{$n});
+  }
 }
 
 .material-icons {
