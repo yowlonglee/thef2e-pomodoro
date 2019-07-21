@@ -1,12 +1,29 @@
 <template>
   <div class="styled-input">
-    <input class="add-to-do" type="text" placeholder="Add a New Mission..." />
-    <span class="styled-input-append"><i class="material-icons">add</i></span>
+    <input
+      class="add-to-do"
+      type="text"
+      placeholder="Add a New Mission..."
+      v-on:keyup.enter="newToDo"
+      ref="i"
+    />
+    <span class="styled-input-append" @click="newToDo">
+      <i class="material-icons">add</i>
+    </span>
   </div>
 </template>
 <script>
 export default {
-  name: "StyledInput"
+  name: "StyledInput",
+  methods: {
+    newToDo: function() {
+      const val = this.$refs.i.value.trim();
+      if (val) {
+        this.$store.dispatch("add", val);
+      }
+      this.$refs.i.value = "";
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -17,6 +34,11 @@ export default {
     width: 100%;
     padding: 1.125em 1em;
     border: 0;
+    // color: $pink;
+    font-weight: 700;
+    font-style: italic;
+    text-transform: uppercase;
+
     &::placeholder {
       color: $pink;
       font-weight: 700;

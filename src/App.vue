@@ -124,6 +124,10 @@ body,
   }
 }
 
+.offset-1 {
+  margin-left: calc(15px + 65px);
+}
+
 .material-icons {
   vertical-align: bottom;
   &.md-light {
@@ -139,7 +143,6 @@ body,
     font-size: 48px;
   }
 }
-
 .view-wrapper {
   padding: 3rem 0;
 }
@@ -149,6 +152,12 @@ body,
 }
 .d-flex {
   display: flex;
+}
+.flex-column {
+  flex-direction: column;
+}
+.flex-grow {
+  flex-grow: 1;
 }
 .flex-align-items-center {
   align-items: center;

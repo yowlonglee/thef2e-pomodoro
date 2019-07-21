@@ -70,6 +70,17 @@ export default new Vuex.Store({
         val = "";
       }
       state.interval = val;
+    },
+    addToDo(state, todo) {
+      state.toDos.push({ title: todo, pomodoro: 0 });
+    },
+    removeToDo(state, index) {
+      state.finishedToDos.push(state.toDos[index]);
+      state.toDos.splice(index, 1);
+    },
+    restoreToDo(state, index) {
+      state.toDos.push(state.finishedToDos[index]);
+      state.finishedToDos.splice(index, 1);
     }
   },
   actions: {
@@ -108,6 +119,15 @@ export default new Vuex.Store({
     clearRunningTimer: function({ commit, state }) {
       clearInterval(state.interval);
       commit("setTimer");
+    },
+    add: function({ commit }, todo) {
+      commit("addToDo", todo);
+    },
+    remove: function({ commit }, index) {
+      commit("removeToDo", index);
+    },
+    restore: function({ commit }, index) {
+      commit("restoreToDo", index);
     }
   }
 });

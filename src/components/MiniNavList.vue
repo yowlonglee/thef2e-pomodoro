@@ -19,4 +19,22 @@ export default {
   name: "MiniNavList"
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "@/assets/styles/variables.scss";
+.mini-nav-item {
+  color: rgba($white, 0.2);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin-bottom: 42px;
+  div {
+    margin-left: 8px;
+    text-transform: uppercase;
+    font-size: 2.25rem;
+    font-weight: 700;
+  }
+  &.router-link-active {
+    color: $pink;
+  }
+}
+</style>
