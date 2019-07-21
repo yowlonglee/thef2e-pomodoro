@@ -66,6 +66,9 @@ export default {
     },
     continueToDo: function() {
       this.$store.dispatch("continue", this.index);
+      if (this.$route.name !== "main") {
+        this.$router.push("/");
+      }
     }
   }
 };
