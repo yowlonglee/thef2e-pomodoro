@@ -133,8 +133,13 @@ export default new Vuex.Store({
     restore: function({ commit }, index) {
       commit("restoreToDo", index);
     },
-    continue: function({ commit }, index) {
+    continue: function({ commit, dispatch }, index) {
       commit("continue", index);
+      dispatch("clearRunningTimer");
+      commit("setPomodoroState", { name: "isBreak", val: false });
+      commit("setPomodoroState", { name: "minutes", val: 25 });
+      commit("setPomodoroState", { name: "seconds", val: 0 });
+      dispatch("start");
     }
   }
 });
