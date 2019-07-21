@@ -30,29 +30,33 @@ export default new Vuex.Store({
       { title: "Cook dinner", pomodoro: 2 }
     ],
     history: [
-      { year: 2019, month: 6, day: 30, pomodoro: 3 },
-      { year: 2019, month: 7, day: 1, pomodoro: 2 },
-      { year: 2019, month: 7, day: 2, pomodoro: 10 },
-      { year: 2019, month: 7, day: 3, pomodoro: 2 },
-      { year: 2019, month: 7, day: 4, pomodoro: 0 },
-      { year: 2019, month: 7, day: 5, pomodoro: 9 },
-      { year: 2019, month: 7, day: 6, pomodoro: 8 },
-      { year: 2019, month: 7, day: 7, pomodoro: 7 },
-      { year: 2019, month: 7, day: 8, pomodoro: 8 },
-      { year: 2019, month: 7, day: 9, pomodoro: 5 },
-      { year: 2019, month: 7, day: 10, pomodoro: 4 },
-      { year: 2019, month: 7, day: 11, pomodoro: 4 },
-      { year: 2019, month: 7, day: 12, pomodoro: 0 },
-      { year: 2019, month: 7, day: 13, pomodoro: 9 },
-      { year: 2019, month: 7, day: 14, pomodoro: 3 },
-      { year: 2019, month: 7, day: 15, pomodoro: 4 },
-      { year: 2019, month: 7, day: 16, pomodoro: 10 },
-      { year: 2019, month: 7, day: 17, pomodoro: 5 },
-      { year: 2019, month: 7, day: 18, pomodoro: 1 },
-      { year: 2019, month: 7, day: 19, pomodoro: 2 },
-      { year: 2019, month: 7, day: 20, pomodoro: 6 }
+      { year: 2019, month: 6, date: 30, pomodoro: 3 },
+      { year: 2019, month: 7, date: 1, pomodoro: 2 },
+      { year: 2019, month: 7, date: 2, pomodoro: 10 },
+      { year: 2019, month: 7, date: 3, pomodoro: 2 },
+      { year: 2019, month: 7, date: 4, pomodoro: 0 },
+      { year: 2019, month: 7, date: 5, pomodoro: 9 },
+      { year: 2019, month: 7, date: 6, pomodoro: 8 },
+      { year: 2019, month: 7, date: 7, pomodoro: 7 },
+      { year: 2019, month: 7, date: 8, pomodoro: 8 },
+      { year: 2019, month: 7, date: 9, pomodoro: 5 },
+      { year: 2019, month: 7, date: 10, pomodoro: 4 },
+      { year: 2019, month: 7, date: 11, pomodoro: 4 },
+      { year: 2019, month: 7, date: 12, pomodoro: 0 },
+      { year: 2019, month: 7, date: 13, pomodoro: 9 },
+      { year: 2019, month: 7, date: 14, pomodoro: 3 },
+      { year: 2019, month: 7, date: 15, pomodoro: 4 },
+      { year: 2019, month: 7, date: 16, pomodoro: 10 },
+      { year: 2019, month: 7, date: 17, pomodoro: 5 },
+      { year: 2019, month: 7, date: 18, pomodoro: 1 },
+      { year: 2019, month: 7, date: 19, pomodoro: 2 },
+      { year: 2019, month: 7, date: 22, pomodoro: 6 }
     ],
-    interval: ""
+    interval: "",
+    ringtones: {
+      work: "none",
+      break: "none"
+    }
   },
   getters: {},
   mutations: {
@@ -85,6 +89,9 @@ export default new Vuex.Store({
     continue(state, index) {
       const splicedToDo = state.toDos.splice(index, 1);
       state.toDos.unshift(splicedToDo[0]);
+    },
+    changeRingtone(state, ringtone) {
+      state.ringtones[ringtone.type] = ringtone.name;
     }
   },
   actions: {
@@ -140,6 +147,9 @@ export default new Vuex.Store({
       commit("setPomodoroState", { name: "minutes", val: 25 });
       commit("setPomodoroState", { name: "seconds", val: 0 });
       dispatch("start");
+    },
+    changeRingtone: function({ commit }, ringtone) {
+      commit("changeRingtone", ringtone);
     }
   }
 });

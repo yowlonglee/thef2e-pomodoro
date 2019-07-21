@@ -45,7 +45,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/styles/variables.scss";
 .timer {
   margin-top: 145px;
@@ -60,8 +60,8 @@ export default {
   color: $pink;
   font-size: 170px;
   font-weight: 700;
-}
-.break .duration-item {
-  color: $blue;
+  .break & {
+    color: $blue;
+  }
 }
 </style>

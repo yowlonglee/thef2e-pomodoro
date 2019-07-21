@@ -13,6 +13,9 @@
                 :title="todo.title"
                 :index="index + 1"
               />
+              <div class="shortcut">
+                <router-link to="/to-do-list">More</router-link>
+              </div>
             </template>
             <template v-else>
               <div>
@@ -75,5 +78,18 @@ export default {
 </script>
 
 <style lang="scss">
-// @import "@/assets/styles/variables.scss";
+@import "@/assets/styles/variables.scss";
+.shortcut {
+  text-transform: uppercase;
+  margin-top: 8px;
+  text-align: right;
+  font-weight: 700;
+  a {
+    text-decoration: none;
+    color: $pink;
+  }
+}
+.break .shortcut a {
+  color: $blue;
+}
 </style>

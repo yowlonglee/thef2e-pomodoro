@@ -1,8 +1,9 @@
 <template>
   <div class="to-do-list-view">
     <div class="row">
-      <div class="col-4">
+      <div class="col-4 d-flex flex-column justify-between">
         <mini-nav-list />
+        <mini-pomodoro />
       </div>
       <div class="col-5 offset-1">
         <styled-input />
@@ -55,12 +56,14 @@
 import MiniNavList from "@/components/MiniNavList.vue";
 import StyledInput from "@/components/StyledInput.vue";
 import ToDo from "@/components/ToDo.vue";
+import MiniPomodoro from "@/components/MiniPomodoro.vue";
 export default {
   name: "ToDoListView",
   components: {
     MiniNavList,
     StyledInput,
-    ToDo
+    ToDo,
+    MiniPomodoro
   },
   computed: {
     toDoList: function() {

@@ -116,7 +116,7 @@ export default {
   font-weight: 700;
   text-transform: uppercase;
   line-height: 1.5rem;
-  flex: 1;
+  flex-grow: 1;
   @include ellipsis;
 }
 .to-do-icon-start {

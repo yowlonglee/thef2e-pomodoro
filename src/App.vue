@@ -165,4 +165,21 @@ body,
 .flex-align-items-center {
   align-items: center;
 }
+.justify-between {
+  justify-content: space-between;
+}
+.panel-header {
+  color: $white;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 8px 16px;
+  background-color: rgba($white, 0.2);
+  display: flex;
+  justify-content: space-between;
+}
+.panel-body {
+  margin-top: 8px;
+  margin-bottom: 48px;
+}
 </style>
