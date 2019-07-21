@@ -1,247 +1,95 @@
 <template>
-  <div
-    class="main-view"
-    :class="{ 'is-running': pomodoro.isRunning, 'is-pause': pomodoro.isPause }"
-  >
-    <div class="row" :class="{ break: pomodoro.isBreak }">
+  <div class="main-view">
+    <div class="row">
       <div class="col-5">
-        <div>new to do box</div>
-        <div>
-          <div>current to do</div>
-          <div>pomodoro group</div>
-        </div>
-        <div>{{ strMinutes }}</div>
-        <div>:</div>
-        <div>{{ strSeconds }}</div>
-        <div>mini to do list</div>
+        <styled-input />
+        <template v-if="toDoListLength > 0">
+          <app-pomodoro-timer />
+          <div class="mini-to-do-list">
+            <template v-if="miniToDoList.length > 0">
+              <to-do
+                v-for="(todo, index) in miniToDoList"
+                :key="todo.title"
+                :title="todo.title"
+                :index="index + 1"
+              />
+              <div class="shortcut">
+                <router-link to="/to-do-list">More</router-link>
+              </div>
+            </template>
+            <template v-else>
+              <div>
+                <div>To do list is empty</div>
+                <div>Try to add some tasks use the form above</div>
+              </div>
+            </template>
+          </div>
+        </template>
+        <template v-else>
+          <div>To do list is empty</div>
+          <div>Try to add some tasks use the form above</div>
+        </template>
       </div>
-      <div class="col-6">
-        <div class="svg-container">
-          <svg viewBox="-0.5 -0.5 101 101" class="timer-pie">
-            <circle class="circle1" r="50" cx="50" cy="50" />
-            <circle
-              class="circle2"
-              r="25"
-              cx="50"
-              cy="50"
-              transform="rotate(-90 50 50)"
-            />
-            <circle class="circle3" r="46.5" cx="50" cy="50" />
-            <circle class="circle4" r="9" cx="50" cy="50" />
-            <g class="pause" @click="pause">
-              <rect class="rect1" width="6" height="6" x="47" y="47" />
-              <rect class="rect2" width="2" height="6" x="49" y="47" />
-            </g>
-            <polygon
-              class="start"
-              @click="start"
-              points="48.5,47 53,50 48.5,53"
-            />
-            <rect
-              class="stop"
-              @click="stop"
-              width="3"
-              height="3"
-              x="61"
-              y="56"
-              id="stop"
-            />
-          </svg>
-        </div>
+      <div class="col-6 d-flex flex-align-items-center">
+        <template v-if="miniToDoList.length > 0">
+          <app-pomodoro-pie />
+        </template>
       </div>
       <div class="col-1">
-        <div class="nav">
-          <router-link class="nav-item" to="/">
-            <i class="material-icons md-36 md-light">close</i>
-          </router-link>
-          <router-link class="nav-item" to="/to-do-list">
-            <i class="material-icons md-36 md-light">list</i>
-          </router-link>
-          <router-link class="nav-item" to="/analytics">
-            <i class="material-icons md-36 md-light">insert_chart</i>
-          </router-link>
-          <router-link class="nav-item" to="/ringtones">
-            <i class="material-icons md-36 md-light">library_music</i>
-          </router-link>
-        </div>
+        <slot></slot>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import AppPomodoro from "@/components/AppPomodoro.vue";
-import { mapActions } from "vuex";
+import AppPomodoroTimer from "@/components/AppPomodoroTimer.vue";
+import AppPomodoroPie from "@/components/AppPomodoroPie.vue";
+import StyledInput from "@/components/StyledInput.vue";
+import ToDo from "@/components/ToDo.vue";
+
 export default {
   name: "MainView",
   components: {
-    // AppPomodoro
+    AppPomodoroTimer,
+    AppPomodoroPie,
+    StyledInput,
+    ToDo
   },
   data: function() {
     return {};
   },
   computed: {
-    seconds: function() {
-      return this.$store.state.pomodoro.seconds;
+    toDoListLength: function() {
+      return this.$store.state.toDos.length;
     },
-    minutes: function() {
-      return this.$store.state.pomodoro.minutes;
-    },
-    pomodoro: function() {
-      return this.$store.state.pomodoro;
-    },
-    strSeconds: function() {
-      return this.numberToDoubleDigitString(this.$store.state.pomodoro.seconds);
-    },
-    strMinutes: function() {
-      return this.numberToDoubleDigitString(this.$store.state.pomodoro.minutes);
-    }
-  },
-  methods: {
-    ...mapActions(["runTimer", "start", "stop", "pause", "clearRunningTimer"]),
-    numberToDoubleDigitString: function(num) {
-      return num.toString().padStart(2, "0");
+    miniToDoList: function() {
+      const list = [];
+      if (this.$store.state.toDos.length > 1) {
+        const min = Math.min(4, this.$store.state.toDos.length);
+        for (let i = 1; i < min; i++) {
+          list.push(this.$store.state.toDos[i]);
+        }
+      }
+      return list;
     }
   }
 };
 </script>
 
 <style lang="scss">
-$pink: #ff4384;
-$blue: #00a7ff;
-$white: #fff;
-
-.svg-container {
-  position: relative;
-  height: 0;
-  width: 100%;
-  padding: 0;
-  padding-top: 100%;
-}
-.timer-pie {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  top: 0;
-}
-.circle1 {
-  fill: none;
-  stroke: $pink;
-  stroke-width: 1;
-}
-.circle2 {
-  fill: $pink;
-  stroke: $pink;
-  stroke-width: 50;
-  stroke-dasharray: 0 158;
-}
-.is-running .circle2 {
-  animation: fillup 1500s linear;
-  animation-play-state: running;
-}
-.is-running .break .circle2 {
-  animation: fillup 300s linear;
-}
-.is-running.is-pause .circle2 {
-  animation-play-state: paused;
-}
-@keyframes fillup {
-  to {
-    stroke-dasharray: 158 158;
+@import "@/assets/styles/variables.scss";
+.shortcut {
+  text-transform: uppercase;
+  margin-top: 8px;
+  text-align: right;
+  font-weight: 700;
+  a {
+    text-decoration: none;
+    color: $pink;
   }
 }
-.circle3 {
-  fill: $pink;
-  stroke: $pink;
-  stroke-width: 1;
-}
-.circle4 {
-  fill: $white;
-}
-.rect1 {
-  fill: $white;
-}
-.rect2 {
-  fill: $pink;
-}
-.pause {
-  display: none;
-}
-.start {
-  fill: $pink;
-}
-.stop {
-  fill: $white;
-}
-.nav {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-.nav-item {
-  margin-top: 48px;
-  font-size: 0;
-}
-.material-icons {
-  &.md-light {
-    color: $white;
-  }
-  &.md-36 {
-    font-size: 36px;
-  }
-}
-.break {
-  .circle1 {
-    stroke: $blue;
-  }
-  .circle2 {
-    fill: $blue;
-    stroke: $blue;
-  }
-  .circle3 {
-    fill: $blue;
-    stroke: $blue;
-  }
-  .rect2 {
-    fill: $blue;
-  }
-  .start {
-    fill: $blue;
-  }
-}
-.is-running {
-  .circle3 {
-    fill: $white;
-  }
-  .circle4 {
-    fill: $pink;
-  }
-  .stop {
-    fill: $pink;
-  }
-  .break {
-    .circle4 {
-      fill: $blue;
-    }
-    .stop {
-      fill: $blue;
-    }
-  }
-  .pause {
-    display: inline-block;
-  }
-  .start {
-    display: none;
-  }
-}
-.is-running.is-pause {
-  .pause {
-    display: none;
-  }
-  .start {
-    display: inline-block;
-    fill: $white;
-  }
+.break .shortcut a {
+  color: $blue;
 }
 </style>
