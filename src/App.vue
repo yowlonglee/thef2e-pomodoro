@@ -1,5 +1,11 @@
 <template>
-  <div id="app" :class="{ break: pomodoro.isBreak }">
+  <div
+    id="app"
+    :class="{
+      break: pomodoro.isBreak,
+      'is-main-layout': $route.name === 'main'
+    }"
+  >
     <div
       class="container"
       :class="{
@@ -47,12 +53,15 @@ body,
 }
 
 #app {
-  background: linear-gradient(to right, $light-pink 50%, $dark-blue 50%);
+  background: $dark-blue;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  &.break {
-    background: linear-gradient(to right, $light-blue 50%, $dark-blue 50%);
+  &.is-main-layout {
+    background: linear-gradient(to right, $light-pink 50%, $dark-blue 50%);
+    &.break {
+      background: linear-gradient(to right, $light-blue 50%, $dark-blue 50%);
+    }
   }
 }
 
@@ -73,13 +82,18 @@ body,
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: linear-gradient(
-    to right,
-    $light-pink color-stop($col, $gutter-width),
-    transparent color-stop($col, $gutter-width)
-  );
 }
-.break .container {
+
+.is-main-layout {
+  .container {
+    background: linear-gradient(
+      to right,
+      $light-pink color-stop($col, $gutter-width),
+      transparent color-stop($col, $gutter-width)
+    );
+  }
+}
+.is-main-layout.break .container {
   background: linear-gradient(
     to right,
     $light-blue color-stop($col, $gutter-width),

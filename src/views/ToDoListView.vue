@@ -1,9 +1,10 @@
 <template>
   <div class="to-do-list-view">
     <div class="row">
-      <div class="col-11">
-        <h1>This is the to do list page</h1>
+      <div class="col-4">
+        <mini-nav-list />
       </div>
+      <div class="col-7"></div>
       <div class="col-1">
         <slot></slot>
       </div>
@@ -11,7 +12,11 @@
   </div>
 </template>
 <script>
+import MiniNavList from "@/components/MiniNavList.vue";
 export default {
-  name: "ToDoListView"
+  name: "ToDoListView",
+  components: {
+    MiniNavList
+  }
 };
 </script>
