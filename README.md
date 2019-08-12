@@ -3,7 +3,7 @@
 [Live demo](https://yowlonglee.github.io/thef2e-pomodoro/)
 
 # About
-This is the project I submit for "The F2E Coding Challenge" week 1 - pomodoro app. "The F2E" is an online challenge for frontend engineers and UI designers. The host will release a new topic each week for 9 weeks. Each challenger must submit his/her app or design before the week ends. The challenger has to find free time in his/her busy life doing the projects and won't get anything in return but the pride and satisfaction.
+This is the project I submit for "The F2E Coding Challenge" week 1 - [pomodoro app](https://challenge.thef2e.com/news/12). ["The F2E"](https://challenge.thef2e.com/) is an online challenge for frontend engineers and UI designers. The host will release a new topic each week for 9 weeks. Each challenger must submit his/her app or design before the week ends. The challenger has to find free time in his/her busy life doing the projects and won't get anything in return but the pride and satisfaction.
 
 I use Vue.js for this app. VueX to store the timer and task data to use across different pages. I learned how to draw with SVG in order to make the graphical timer.
 
